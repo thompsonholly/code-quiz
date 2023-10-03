@@ -1,0 +1,11 @@
+.highscores {
+  top: 8px;
+  left: 8px;
+  position: absolute;
+}
+
+.cd-timer {
+  top: 8px;
+  right: 8px;
+  position: absolute;
+}
