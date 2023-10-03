@@ -12,35 +12,41 @@
 // THEN I can save my initials and my score
 
 
-var questions =
-var scoreboard = 0
+// var questions =
+// var scoreboard = 0
+let startBtnEL = document.getElementById("start-btn")
+startBtnEL.onclick = beginQuiz;
 
-generateQuiz() {
-
+function beginQuiz() {
+  console.log("Begin Quiz Entered");
 }
 
-function setTime() {
+// generateQuiz() {
 
-  var timerInterval = setInterval(function () {
-    secondsLeft--;
+// }
 
-    if (secondsLeft === 0) {
-      // Stops execution of action at set interval
-      clearInterval(timerInterval);
-      // Calls function to create and append image
-      sendMessage("Time's Up!");
-    }
+// function setTime() {
 
-  }, 1000);
-}
-generateStartBtn.addEventListener("click", showScoreboard);
+//   var timerInterval = setInterval(function () {
+//     secondsLeft--;
 
-function showScoreboard() {
-  scoreboard = generateQuiz();
+//     if (secondsLeft === 0) {
+//       // Stops execution of action at set interval
+//       clearInterval(timerInterval);
+//       // Calls function to create and append image
+//       sendMessage("Time's Up!");
+//     }
 
-  var scoreboardResult = document.querySelector("#results");
+//   }, 1000);
+// }
+// generateStartBtn.addEventListener("click", showScoreboard);
 
-  scoreboard.valueOf(number + initials)
-}
+// function showScoreboard() {
+//   scoreboard = generateQuiz();
 
-setTime();
+//   var scoreboardResult = document.querySelector("#results");
+
+//   scoreboard.valueOf(number + initials)
+// }
+
+// setTime();
