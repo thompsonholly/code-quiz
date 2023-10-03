@@ -14,3 +14,13 @@
   margin: 80px auto 0 auto;
   max-width: 650px;
 }
+
+.startdiv {
+  text-align: center;
+}
+
+button {
+  cursor: pointer;
+  background-color: blueviolet;
+  display: inline-block;
+}
