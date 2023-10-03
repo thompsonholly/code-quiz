@@ -9,3 +9,8 @@
   right: 8px;
   position: absolute;
 }
+
+.quiz-wrapper {
+  margin: 80px auto 0 auto;
+  max-width: 650px;
+}
