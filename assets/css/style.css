@@ -1,14 +1,23 @@
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #eee2dc;
+  color: #ac3b61;
+
+}
+
 .highscores {
   top: 8px;
   left: 8px;
   position: absolute;
 }
 
-.cd-timer {
+.countdown {
   top: 8px;
   right: 8px;
   position: absolute;
   margin-right: 45px;
+  color: #123c69;
+  font-size: 30px;
 }
 
 .quiz-wrapper {
@@ -18,10 +27,28 @@
 
 .startdiv {
   text-align: center;
+  background-color: #bab2b5;
+  border: #edc7b7 solid 10px;
+
+
 }
 
 button {
   cursor: pointer;
-  background-color: blueviolet;
+  background-color: #123c69;
   display: inline-block;
+  color: aliceblue
+}
+
+#submit {
+  display: inline;
+  justify-content: flex-start;
+  text-align: center;
+  margin-top: 20px;
+  border: #bab2b5 solid 5px;
+  display: none;
+}
+
+.question-container {
+  display: none;
 }

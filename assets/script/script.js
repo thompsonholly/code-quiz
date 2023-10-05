@@ -13,76 +13,134 @@
 
 // 1. Listen for the click start button 
 // 2. Start timer --- (function) and show first question ---(separate function or include in startQuiz?)
-// 2. If the correct answer is chosen- reveal next question, log score
-// 3. If the wrong answer is chosen- take time off timer
-// 4. If the timer runs out
+// Get rid of title and paragraph for starting quiz done
+// How do I do that?
+// How to hide, delete, erase html element? done
+// How to select a tag? done
+// How do I show an element? done
+//  If the correct answer is chosen- reveal next question, log score
+//  How will computer know when correct answer is chosen? 
+//  If the wrong answer is chosen- take time off timer
+//  If the timer runs out
 //    a. open enter intials and submit button to log score
 //    b. if all questions are answered open enter initals and submit button to enter score.
 // 5. Once the quiz is over 
 //    a. log wins and losses
 //    b. update scoreboard
-// var questions =
+
 // var scoreboard = 0
 // var timerEl = document.getElementById('countdown')
 // var timeDisplay = document.getElementById()
 
-var myQuestions = [
+// var myQuestions = [
+//   {
+//     question = 'Which is not an animal?', 
+
+//     question = 'Which animal has fur?', 'a) Snake', 'b) Alligator', 'c) Wolf)';
+
+
+//   }
+// ]
+var questions = [
   {
-    "Which is not an animal?" 
-    a: "Elephant"
-    b: "Robot"
-    c: "Monkey"
-    answer: "b"
+    question: "Which is not an animal?",
+    options: ["a) Monkey", "b) Elephant", "c) Robot"],
+    answer: "c) Robot"
+  },
+  {
+    question: "Which animal has fur",
+    options: ["a) Snake", "b) Bear", "c) Alligator "],
+    answer: "b) Bear"
+
   }
-]
+
+];
+questions[0].question
+
+console.log(questions[0].question);
+questions[0].options[1]
+console.log(questions[0].options[1])
+console.log(questions[0].options[1] === questions[0].answer)
+questions[0].answer
+console.log(questions[0].answer)
+// if question === answer
+
+var timerEl = document.getElementById('countdown');
+
+var startBtn = document.querySelector("#start-btn");
+
+var submitBtn = document.querySelector("#submit");
+
+var divEl = document.getElementById('startdiv');
+
+var questionContainerEl = document.getElementById('question-container');
 
 
 
-var timeLeft = document.querySelector(".cd-timer")
 
-var startBtnEL = document.getElementById("start-btn")
 
-startBtnEL.addEventListener("click", beginQuiz);
+startBtn.addEventListener("click", beginQuiz);
 
-function setTimer() {
-  var countdown = setInterval(function () {
-    timeLeft.textContent = ("Remaining Time:" + secondsLeft);
-    secondsLeft--;
 
-    if (secondsLeft < 0) {
+
+function countdown() {
+  var timeLeft = 30;
+
+  var timeInterval = setInterval(function () {
+    if (timeLeft > 1) {
+
+      timerEl.textContent = timeLeft + ' seconds remaining';
+
+      timeLeft--;
+
+    } else if (timeLeft === 1) {
+      timerEl.textContent = timeLeft + ' second remaining';
+      timeLeft--;
+
+    } else {
+      timerEl.textContent = '';
       // Stops execution of action at set interval
-      clearInterval(timerInterval);
+      clearInterval(timeInterval);
+      console.log("Timer 0");
       // Calls function to create and append image
-      displayMessage("Time's Up!");
+      displayMessage('');
     }
-  }, 10000);
+  }, 1000);
 }
 
 function beginQuiz() {
   console.log("Begin Quiz Entered");
-  setTimer;
+  countdown();
+  divEl.style.display = 'none';
+  console.log(divEl);
+  console.log(questionContainerEl);
+  questionContainerEl.style.display = 'block';
+
+
+
+
 }
 
-for (var i = 0; i < myQuestions.length; i++) {
-  var response =
-  if (response == myQuestions[i].answer) {
-    score++;
-    alert("Correct");
-  } else {
-    alert("Incorrect!")
+// for (var i = 0; i < myQuestions.length; i++) {
+//   var response =
+//   if (response == myQuestions[i].answer) {
+//     score++;
+//     alert("Correct");
+//   } else {
+//     alert("Incorrect!")
 
-  }
-}
+//   }
+// }
 // generateSubmitBtn.addEventListener("click", showScoreboard);
 
-function showScoreboard() {
-  scoreboard = generateQuiz();
+// function showScoreboard() {
+//   scoreboard = generateQuiz();
 
-  var scoreboardResult = document.querySelector("#results");
+//   var scoreboardResult = document.querySelector("#results");
 
-  scoreboard.valueOf(number + initials)
-}
-submitButton.addEventListener('click', showScoreboard)
+//   scoreboard.valueOf(number + initials)
+// }
+// submitBtn.addEventListener('click', showScoreboard);
 // function generateQuiz(questions, quizContainer, resultsContainer, submitButton) {
 
 //   function showQuestions(questions, quizContainer) {

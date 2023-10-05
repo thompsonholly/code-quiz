@@ -13,9 +13,9 @@
     <a href="hs.html">Click here for highscores.</a>
   </div>
 
-  <div class="cd-timer">
+  <div class="countdown">
     <!-- Remaining Time: -->
-    <span id="cd-timer">Remaining Time:</span>
+    <span id="countdown"></span>
   </div>
 
   <div class="quiz-wrapper">
@@ -23,15 +23,28 @@
     <div id="startdiv" class="startdiv">
 
       <h1>Welcome to the Animal Quiz</h1>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus modi doloribus pariatur fugiat ad velit quae
-        commodi alias enim beatae minima quidem, neque laudantium recusandae repudiandae magnam, illo ipsa quibusdam!
+      <p>Please select the correct answer from multiple choice. Timer starts after clicking "Start Quiz". BE
+        AWARE! Time
+        will be taken away for every wrong answer.
       </p>
+
       <button id="start-btn">Start Quiz</button>
     </div>
-
   </div>
-  <button id="submit">Submit</button>
-  <div id="scoreboard"></div>
+
+  <div id="question-container" class="question-container">
+    <p>How does this work?
+    </p>
+    <ul>
+      <li>a</li>
+      <li>b</li>
+      <li>c</li>
+    </ul>
+  </div>
+
+  <div id="scoreboard">
+    <button id="submit">Submit</button>
+  </div>
   <script src="./assets/script/script.js"></script>
 </body>
 
