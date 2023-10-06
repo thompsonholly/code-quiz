@@ -1,15 +1,5 @@
+var questionContainer = document.getElementById("question-goes-here")
 
-// GIVEN I am taking a code quiz
-// WHEN I click the start button
-// THEN a timer starts and I am presented with a question
-// WHEN I answer a question
-// THEN I am presented with another question
-// WHEN I answer a question incorrectly
-// THEN time is subtracted from the clock
-// WHEN all questions are answered or the timer reaches 0
-// THEN the game is over
-// WHEN the game is over
-// THEN I can save my initials and my score
 
 // 1. Listen for the click start button 
 // 2. Start timer --- (function) and show first question ---(separate function or include in startQuiz?)
@@ -28,42 +18,23 @@
 //    a. log wins and losses
 //    b. update scoreboard
 
-// var scoreboard = 0
-// var timerEl = document.getElementById('countdown')
-// var timeDisplay = document.getElementById()
-
-// var myQuestions = [
-//   {
-//     question = 'Which is not an animal?', 
-
-//     question = 'Which animal has fur?', 'a) Snake', 'b) Alligator', 'c) Wolf)';
-
-
-//   }
-// ]
-var questions = [
+var myQuestions = [
   {
-    question: "Which is not an animal?",
-    options: ["a) Monkey", "b) Elephant", "c) Robot"],
-    answer: "c) Robot"
+    question: "Which is not an animal? A. Monkey, B. Elephant, C. Robot",
+    userChoice: ['A', 'B', 'C'],
+    answer: 'C'
   },
   {
-    question: "Which animal has fur",
-    options: ["a) Snake", "b) Bear", "c) Alligator "],
-    answer: "b) Bear"
+    question: "Which animal has fur? A. Snake, B. Bear, C. Alligator?",
+    userChoice: ['A', 'B', 'C'],
+    answer: 'B'
 
   }
 
 ];
-questions[0].question
 
-console.log(questions[0].question);
-questions[0].options[1]
-console.log(questions[0].options[1])
-console.log(questions[0].options[1] === questions[0].answer)
-questions[0].answer
-console.log(questions[0].answer)
-// if question === answer
+
+
 
 var timerEl = document.getElementById('countdown');
 
@@ -74,8 +45,46 @@ var submitBtn = document.querySelector("#submit");
 var divEl = document.getElementById('startdiv');
 
 var questionContainerEl = document.getElementById('question-container');
+var questionDisplay = document.querySelector('')
+
+var lastQuestion = myQuestions.length - 1;
+
+var currQuestionIndex = 0;
+
+var wins = document.querySelector(".win");
+var losses = document.querySelector(".loss");
+
+function renderQuestions() {
+  var q = myQuestions[currQuestionIndex];
+  var pTag = document.createElement("p");
+  pTag.textContent = q.question;
+  questionContainer.appendChild(pTag)
+  for (var i = 0; i < q.userChoice.length; i++) {
+    var btn = document.createElement("button")
+    btn.textContent = userChoice[i]
+    // how can we put some kind of data on the button that 
+    // indicates if it's the correct answer
+    questionContainer.appendChild(btn)
+  }
+}
 
 
+console.log(currQuestion[0].question);
+currQuestion[0].options[1]
+console.log(currQuestion[0].options[1])
+console.log(currQuestion[0].options[1] === currQuestion[0].answer)
+currQuestion[0].answer
+console.log(currQuestion[0].answer)
+
+
+// Createan event listener on questionContainer
+// When a click event is detected, check and see if one of the 
+// buttons inside questionContainer was clicked
+questionContainer.addEventListener("click", function (event) {
+  // if event target is of the buttons, proceed from there
+})
+
+// if mquestion === answer
 
 
 
@@ -103,7 +112,20 @@ function countdown() {
       clearInterval(timeInterval);
       console.log("Timer 0");
       // Calls function to create and append image
-      displayMessage('');
+      displayMessage("Time's up");
+
+      for (var i = 0; i < myQuestions.length; i++) {
+        var userChoice = '';
+        console.log(userChoice);
+        if (userChoice == myQuestions[i].answer) {
+          score++;
+          alert("Correct");
+        } else {
+          !userChoice == myQuestions[i].answer
+          timeLeft - 5;
+          alert("Incorrect!")
+        }
+      }
     }
   }, 1000);
 }
@@ -112,6 +134,8 @@ function beginQuiz() {
   console.log("Begin Quiz Entered");
   countdown();
   divEl.style.display = 'none';
+  questionContainerEl.style.display = 'block';
+  renderQuestions();
   console.log(divEl);
   console.log(questionContainerEl);
   questionContainerEl.style.display = 'block';
@@ -143,9 +167,6 @@ function beginQuiz() {
 // submitBtn.addEventListener('click', showScoreboard);
 // function generateQuiz(questions, quizContainer, resultsContainer, submitButton) {
 
-//   function showQuestions(questions, quizContainer) {
-//     // code will go here
-//   }
 
 //   function showResults(questions, quizContainer, resultsContainer) {
 //     // code will go here}

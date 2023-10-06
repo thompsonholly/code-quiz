@@ -9,16 +9,15 @@
 </head>
 
 <body>
-  <div class="highscores">
-    <a href="hs.html">Click here for highscores.</a>
-  </div>
-
-  <div class="countdown">
-    <!-- Remaining Time: -->
-    <span id="countdown"></span>
-  </div>
 
   <div class="quiz-wrapper">
+
+    <div class="countdown">
+      <!-- Remaining Time: -->
+      <span id="countdown">30 Seconds</span>
+    </div>
+
+
 
     <div id="startdiv" class="startdiv">
 
@@ -28,22 +27,44 @@
         will be taken away for every wrong answer.
       </p>
 
+      <!-- start quiz button -->
       <button id="start-btn">Start Quiz</button>
     </div>
   </div>
 
+  <!-- Quiz container -->
   <div id="question-container" class="question-container">
-    <p>How does this work?
-    </p>
-    <ul>
-      <li>a</li>
-      <li>b</li>
-      <li>c</li>
-    </ul>
-  </div>
+    <header>
+      <div class="title">Animal Quiz</div>
+      <div class="cd-timer"></div>
+    </header>
 
-  <div id="scoreboard">
-    <button id="submit">Submit</button>
+    <section id="question-goes-here">
+      <div class="question" id="question">
+        <!-- Questions created in JavaScript -->
+      </div>
+      <div class="choice-list"></div>
+      <!-- Choices in JavaScript -->
+    </section>
+    <!-- Quiz box footer -->
+
+    <footer>
+      <div class="question-count">
+        <!-- question counter in js-->
+      </div>
+      <button class="next-btn">Next</button>
+
+      <div class="highscore-container">
+        <h2>Wins: <span class="Win">0</span></h2>
+        <h2>Losses: <span class="Lose">0</span></h2>
+
+        <a href="hs.html">Click here for highscores.</a>
+
+        <div id="scoreboard">
+          <button id="submit">Submit</button>
+        </div>
+      </div>
+    </footer>
   </div>
   <script src="./assets/script/script.js"></script>
 </body>
