@@ -51,4 +51,16 @@ button {
 
 .question-container {
   display: none;
+  text-align: center;
+  border: 5px solid blue;
+}
+
+btn {
+  background-color: #123c69;
+  display: inline-block;
+  color: aliceblue;
+  border: 5px solid aliceblue;
+  text-align: center;
+  align-content: space-between;
+
 }

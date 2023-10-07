@@ -1,6 +1,3 @@
-var questionContainer = document.getElementById("question-goes-here")
-
-
 // 1. Listen for the click start button 
 // 2. Start timer --- (function) and show first question ---(separate function or include in startQuiz?)
 // Get rid of title and paragraph for starting quiz done
@@ -18,23 +15,7 @@ var questionContainer = document.getElementById("question-goes-here")
 //    a. log wins and losses
 //    b. update scoreboard
 
-var myQuestions = [
-  {
-    question: "Which is not an animal? A. Monkey, B. Elephant, C. Robot",
-    userChoice: ['A', 'B', 'C'],
-    answer: 'C'
-  },
-  {
-    question: "Which animal has fur? A. Snake, B. Bear, C. Alligator?",
-    userChoice: ['A', 'B', 'C'],
-    answer: 'B'
-
-  }
-
-];
-
-
-
+var questionContainer = document.getElementById("question-goes-here")
 
 var timerEl = document.getElementById('countdown');
 
@@ -44,56 +25,104 @@ var submitBtn = document.querySelector("#submit");
 
 var divEl = document.getElementById('startdiv');
 
-var questionContainerEl = document.getElementById('question-container');
-var questionDisplay = document.querySelector('')
+var scoreboard = document.getElementById("scoreboard");
 
-var lastQuestion = myQuestions.length - 1;
+var questionContainerEl = document.getElementById('question-container');
 
 var currQuestionIndex = 0;
+
+// var answer = '';
+// var question = '';
+// var userChoice = '';
+
+
 
 var wins = document.querySelector(".win");
 var losses = document.querySelector(".loss");
 
+var myQuestions = [
+  {
+    question: "Which is not an animal? A. Monkey, B. Elephant, C. Robot",
+    userChoice: ['A', 'B', 'C'],
+    answer: 'C'
+  },
+  {
+    question: "Which animal has fur? A. Snake B. Bear C. Alligator?",
+    userChoice: ['A', 'B', 'C'],
+    answer: 'B'
+
+  }
+
+];
+
+// This function gets current question from the array and displays on the screen.
 function renderQuestions() {
+  // clear out anything already in the questionContainer
   var q = myQuestions[currQuestionIndex];
   var pTag = document.createElement("p");
   pTag.textContent = q.question;
   questionContainer.appendChild(pTag)
+
   for (var i = 0; i < q.userChoice.length; i++) {
+
     var btn = document.createElement("button")
-    btn.textContent = userChoice[i]
-    // how can we put some kind of data on the button that 
-    // indicates if it's the correct answer
+    btn.textContent = q.userChoice[i]
+    var answer = currQuestionIndex[i]
+
     questionContainer.appendChild(btn)
+    // how can we put some kind of data on the button that
+    // indicates if it's the correct answer
+
+    btn.style.width = '50px';
+    btn.style.height = '50px';
+
   }
 }
 
+questionContainerEl.addEventListener('click', function (event) {
+  if (event.target.matches("button")) {
+    var currQuestionIndex = [0];
+    var q = myQuestions[currQuestionIndex];
+    if (event.target.textContent === userChoice.answer) {
+      answerIsCorrect()
 
-console.log(currQuestion[0].question);
-currQuestion[0].options[1]
-console.log(currQuestion[0].options[1])
-console.log(currQuestion[0].options[1] === currQuestion[0].answer)
-currQuestion[0].answer
-console.log(currQuestion[0].answer)
-
-
-// Createan event listener on questionContainer
-// When a click event is detected, check and see if one of the 
-// buttons inside questionContainer was clicked
-questionContainer.addEventListener("click", function (event) {
-  // if event target is of the buttons, proceed from there
+    } else {
+      answerIsWrong()
+    }
+    currQuestionIndex++
+    renderQuestions()
+  }
 })
 
-// if mquestion === answer
 
+function answerIsCorrect() {
+  if (answerIsCorrect === userChoice.answer) {
+    console.log('Correct!');
+  } else {
+    console.log('not correct')
+  }
+}
+// function scoreboard() {
 
+// }
+// for (var i = 0; i < myQuestions.length; i++) {
+//   var userChoice = '';
+//   console.log(userChoice);
+// } if (userChoice == myQuestions[i].answer) {
+//   score++;
+//   alert("Correct");
+// } else {
+//   !userChoice == myQuestions[i].answer
+//   timeLeft - 5;
+//   alert("Incorrect!")
+// }
 
 startBtn.addEventListener("click", beginQuiz);
 
 
 
 function countdown() {
-  var timeLeft = 30;
+  var timeLeft = 60;
 
   var timeInterval = setInterval(function () {
     if (timeLeft > 1) {
@@ -111,21 +140,21 @@ function countdown() {
       // Stops execution of action at set interval
       clearInterval(timeInterval);
       console.log("Timer 0");
+      //determines if user won the game or not
       // Calls function to create and append image
-      displayMessage("Time's up");
+      renderQuestions()
 
-      for (var i = 0; i < myQuestions.length; i++) {
-        var userChoice = '';
-        console.log(userChoice);
-        if (userChoice == myQuestions[i].answer) {
-          score++;
-          alert("Correct");
-        } else {
-          !userChoice == myQuestions[i].answer
-          timeLeft - 5;
-          alert("Incorrect!")
-        }
-      }
+      // for (var i = 0; i < myQuestions.length; i++) {
+      //   var userChoice = '';
+      //   console.log(userChoice);
+      //   if (userChoice == myQuestions[i].answer) {
+      //     score++;
+      //     alert("Correct");
+      //   } else {
+      //     !userChoice == myQuestions[i].answer
+      //     timeLeft - 5;
+      //     alert("Incorrect!")
+      //   }
     }
   }, 1000);
 }
