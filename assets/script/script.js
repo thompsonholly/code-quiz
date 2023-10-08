@@ -31,26 +31,39 @@ var questionContainerEl = document.getElementById('question-container');
 
 var currQuestionIndex = 0;
 
-// var answer = '';
-// var question = '';
-// var userChoice = '';
+var correctAnswer = '';
 
-
+var totalWins = 0;
+var totalLosses = 0;
+var userChoice = '';
+var timeLeft = 0;
 
 var wins = document.querySelector(".win");
 var losses = document.querySelector(".loss");
+
+startBtn.addEventListener("click", beginQuiz);
 
 var myQuestions = [
   {
     question: "Which is not an animal? A. Monkey, B. Elephant, C. Robot",
     userChoice: ['A', 'B', 'C'],
-    answer: 'C'
+    correctAnswer: 'C'
   },
   {
-    question: "Which animal has fur? A. Snake B. Bear C. Alligator?",
+    question: "Which animal has fur? A. Snake B. Bear C. Alligator",
     userChoice: ['A', 'B', 'C'],
-    answer: 'B'
+    correctAnswer: 'B'
 
+  },
+  {
+    question: "Which animal has stripes? A. Cheetah B. Lion C. Zebra",
+    userChoice: ['A', 'B', 'C'],
+    correctAnswer: 'C'
+  },
+  {
+    question: "Which animal has the best eyesight at night? A. Owl B. Snail C. Horse",
+    userChoice: ['A', 'B', 'C'],
+    correctAnswer: 'A'
   }
 
 ];
@@ -62,12 +75,19 @@ function renderQuestions() {
   var pTag = document.createElement("p");
   pTag.textContent = q.question;
   questionContainer.appendChild(pTag)
-
+  if (currQuestionIndex > 0) {
+    for (var i = 0; i < q.userChoice.length; i++) {
+      btn.remove();
+    }
+    pTag.remove();
+  }
   for (var i = 0; i < q.userChoice.length; i++) {
+
+
 
     var btn = document.createElement("button")
     btn.textContent = q.userChoice[i]
-    var answer = currQuestionIndex[i]
+    // var correctAnswer = currQuestionIndex[i]
 
     questionContainer.appendChild(btn)
     // how can we put some kind of data on the button that
@@ -81,27 +101,44 @@ function renderQuestions() {
 
 questionContainerEl.addEventListener('click', function (event) {
   if (event.target.matches("button")) {
-    var currQuestionIndex = [0];
     var q = myQuestions[currQuestionIndex];
-    if (event.target.textContent === userChoice.answer) {
-      answerIsCorrect()
-
-    } else {
-      answerIsWrong()
-    }
-    currQuestionIndex++
-    renderQuestions()
+    console.log(event.target.textContent + " 1 " + q.correctAnswer);
   }
-})
+  if (event.target.textContent != q.correctAnswer) {
+    console.log(q.userChoice + " 2 " + correctAnswer);
+    answerIsWrong()
+  } else {
+    (event.target.textContent == q.correctAnswer)
+    console.log(q.userChoice + " + " + correctAnswer);
+    answerIsCorrect();
+  }
+  currQuestionIndex++
+  renderQuestions()
+
+});
 
 
 function answerIsCorrect() {
-  if (answerIsCorrect === userChoice.answer) {
-    console.log('Correct!');
-  } else {
-    console.log('not correct')
-  }
+
+  console.log('Correct!');
+  totalWins++;
+  // localStorage.setItem("wins", totalWins);
+  // wins.textContent = localStorage.getItem('wins');
+
+
+
 }
+
+function answerIsWrong() {
+  console.log('not correct')
+  timeLeft -= 5;
+  totalLosses++;
+  // localStorage.setItem('loss', totalLosses);
+  // losses.textContent = localStorage.getItem('losses');
+
+
+}
+
 // function scoreboard() {
 
 // }
@@ -117,12 +154,12 @@ function answerIsCorrect() {
 //   alert("Incorrect!")
 // }
 
-startBtn.addEventListener("click", beginQuiz);
+
 
 
 
 function countdown() {
-  var timeLeft = 60;
+  timeLeft = 60;
 
   var timeInterval = setInterval(function () {
     if (timeLeft > 1) {
@@ -144,17 +181,7 @@ function countdown() {
       // Calls function to create and append image
       renderQuestions()
 
-      // for (var i = 0; i < myQuestions.length; i++) {
-      //   var userChoice = '';
-      //   console.log(userChoice);
-      //   if (userChoice == myQuestions[i].answer) {
-      //     score++;
-      //     alert("Correct");
-      //   } else {
-      //     !userChoice == myQuestions[i].answer
-      //     timeLeft - 5;
-      //     alert("Incorrect!")
-      //   }
+
     }
   }, 1000);
 }
@@ -164,6 +191,7 @@ function beginQuiz() {
   countdown();
   divEl.style.display = 'none';
   questionContainerEl.style.display = 'block';
+  currQuestionIndex = 0;
   renderQuestions();
   console.log(divEl);
   console.log(questionContainerEl);
@@ -174,16 +202,7 @@ function beginQuiz() {
 
 }
 
-// for (var i = 0; i < myQuestions.length; i++) {
-//   var response =
-//   if (response == myQuestions[i].answer) {
-//     score++;
-//     alert("Correct");
-//   } else {
-//     alert("Incorrect!")
 
-//   }
-// }
 // generateSubmitBtn.addEventListener("click", showScoreboard);
 
 // function showScoreboard() {
