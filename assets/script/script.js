@@ -14,14 +14,6 @@ var divEl = document.querySelector('startdiv');
 
 var scoreboard = document.querySelector("scoreboard");
 
-// var currQuestionIndex = 0;
-
-// var answer = true;
-
-// var totalWins = 0;
-// var totalLosses = 0;
-// // var userChoice = '';
-// var timeLeft = 0;
 
 let currentQuestion = {}
 let acceptingAnswers = true
@@ -59,84 +51,48 @@ var questions = [
   }
 ]
 var max_questions = 5;
-// var wins = document.querySelector(".win");
-// var losses = document.querySelector(".loss");
 
-startButton.addEventListener('click', beginQuiz());
 
+startButton.addEventListener("click", beginQuiz());
+
+// nextButton.addEventListener('click', nextQuestion);
+
+function renderQuestions() {
+  var currentQuestion = questions[currQuestionIndex];
+
+  var h1Tag = document.createElement('h1');
+  h1Tag.textContent = currentQuestion.question
+  questionContainer.appendChild('h1');
+
+  // var nextQuestion = currQuestionIndex + 1;
+  // question = nextQuestion + '  ' + currentQuestion.myQuestions;
+  for (var i = 0; i < currentQuestion.choices; i++) {
+    var userChoice = currentQuestion.choices[i];
+
+    var btn = document.createElement("button");
+    questionContainer.appendChild(btn);
+    btn.textContent = questions.choices;
+    console.log(currentQuestion.userChoice);
+    btn.style.width = '50px';
+    btn.style.height = '50px';
+  };
+}
 
 beginQuiz = () => {
   divEl.remove('startdiv');
   score = 0;
   questionContainer.style.display = 'block';
-  availableQuestions = [...questions]
+  renderQuestions();
+  // availableQuestions = [...questions]
   var pTag = document.createElement("p");
-  pTag.textContent = q.question;
+  pTag.textContent = questions.question;
   questionContainer.appendChild(pTag);
 
-  nextButton.addEventListener('click', getNewQuestion());
+  nextButton.addEventListener('click', renderQuestions());
 
-  getNewQuestion();
+
 
 }
-
-function getNewQuestion() {
-
-  
-    var currentQuestion = questions[currentQuestion];
-    var nextQuestion = currentQuestion + 1;
-    // question = nextQuestion + '  ' + currentQuestion.myQuestions;
-    for (var i = 0; i < currentQuestion.userChoices; i++) {
-      var userChoice = currentQuestion.userChoices[i];
-
-      var btnA = document.createElement("buttonA");
-      var btnB = document.createElement("buttonB");
-      var btnB = document.createElement("buttonC");
-      questionContainer.appendChild(btnA);
-      questionContainer.appendChild(btnB);
-      questionContainer.appendChild(btnC);
-      btnA.textContent = A;
-      btnB.textContent = B;
-      btnC.textContent = C;
-      console.log(currentQuestion.userChoices);
-    }
-  }
-
-  nextButton.addEventListener('click', getNewQuestion);
-  if (questions.length === 0 || questionCounter > max_questions) {
-
-
-  
-  questionCounter++
-  const questionIndex = Math.floor(Math.random() * questions.length);
-  currentQuestion = availableQuestions[questionIndex]
-  question.innerText = currentQuestion.question;
-}
-  choices.forEach(choice => {
-    const number = choice.dataset['number'];
-    choice.innerText = currentQuestion['choice' + number];
-  })
-
-choices.forEach(choice => {
-  choice.addEventListener('click', e => {
-    if (!choice === answer) 
-      return score--;
-    } else {
-    if (choice === answer)
-  return score++;
-    
-    })
-
-incrementScore = num => {
-  score += num;
-  scoreText.innerText = score;
-}
-// This function gets current question from the array and displays on the screen.
-
-// clear out anything already in the questionContainer
-
-
-nextButton.addEventListener('click', nextQuestion);
 
 
 // function renderQuestions() {
@@ -150,22 +106,6 @@ nextButton.addEventListener('click', nextQuestion);
 //     var btn = document.createElement("button");
 //     questionContainer.appendChild(btn);
 //     btn.textContent = currentQuestion.userChoices;
-//     console.log(currentQuestion.userChoices);
-//     btn.style.width = '50px';
-//     btn.style.height = '50px';
-//   };
-// }
-
-// function renderQuestions() {
-//   var currentQuestion = myQuestions[currQuestionIndex];
-//   // var nextQuestion = currQuestionIndex + 1;
-//   // question = nextQuestion + '  ' + currentQuestion.myQuestions;
-//   for (var i = 0; i < currentQuestion.userChoices; i++) {
-//     var userChoice = currentQuestion.userChoices[i];
-
-//     var btn = document.createElement("button");
-//     questionContainer.appendChild(btn);
-//     btn.textContent = userChoice;
 //     console.log(currentQuestion.userChoices);
 //     btn.style.width = '50px';
 //     btn.style.height = '50px';
