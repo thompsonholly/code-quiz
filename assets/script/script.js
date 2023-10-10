@@ -1,100 +1,149 @@
-// 1. Listen for the click start button 
-// 2. Start timer --- (function) and show first question ---(separate function or include in startQuiz?)
-// Get rid of title and paragraph for starting quiz done
-// How do I do that?
-// How to hide, delete, erase html element? done
-// How to select a tag? done
-// How do I show an element? done
-//  If the correct answer is chosen- reveal next question, log score
-//  How will computer know when correct answer is chosen? 
-//  If the wrong answer is chosen- take time off timer
-//  If the timer runs out
-//    a. open enter intials and submit button to log score
-//    b. if all questions are answered open enter initals and submit button to enter score.
-// 5. Once the quiz is over 
-//    a. log wins and losses
-//    b. update scoreboard
-var questionContainerEl = document.getElementById('question-container');
 
-var questionContainer = document.getElementById("question-goes-here");
 
-var nextButton = document.getElementById('next-btn');
+var questionContainer = document.querySelector('question-container');
 
-var timeLeft = document.getElementById('countdown');
+var nextButton = document.querySelector('next-btn');
+
+var timeLeft = document.querySelector('countdown');
 
 var startButton = document.querySelector("#start-btn");
 
 var submitBtn = document.querySelector("#submit");
 
-var divEl = document.getElementById('startdiv');
+var divEl = document.querySelector('startdiv');
 
-var scoreboard = document.getElementById("scoreboard");
+var scoreboard = document.querySelector("scoreboard");
 
-var currentQuestion = '';
+// var currQuestionIndex = 0;
 
-var currQuestionIndex = 0;
+// var answer = true;
 
-var correctAnswer = '';
+// var totalWins = 0;
+// var totalLosses = 0;
+// // var userChoice = '';
+// var timeLeft = 0;
 
-var totalWins = 0;
-var totalLosses = 0;
-var userChoice = '';
-var timeLeft = 0;
+let currentQuestion = {}
+let acceptingAnswers = true
+let score = 0
+let questionCounter = 0;
+let availableQuestions = []
 
-var myQuestions = [
+var questions = [
   {
     question: "Which is not an animal? A. Dog B. Horse C. Robot",
-    userChoices: ["A", "B", "C"],
-    correctAnswer: "C"
+    choice1: 'A',
+    choice2: 'B',
+    choice3: 'C',
+    answer: 3
   },
   {
     question: 'What animal has fur? A. Bear B. Snake C. Alligator',
-    userChoices: ["A", "B", "C"],
-    correctAnswer: "A"
+    choice1: 'A',
+    choice2: 'B',
+    choice3: 'C',
+    answer: 1
   },
   {
     question: 'Which animal has stripes? A. Cheetah B. Zebra C. Emu',
-    userChoices: ["A", "B", "C"],
-    correctAnswer: "B"
+    choice1: 'A',
+    choice2: 'B',
+    choice3: 'C',
+    answer: 2
   },
   {
     question: "What animal sees best at night? A. Snail B. Squirrel C. Owl",
-    userChoices: ["A", "B", "C"],
-    correctAnswer: 'C'
+    choice1: 'A',
+    choice2: 'B',
+    choice3: 'C',
+    answer: 3
 
   },
   {
     question: "Which animal lays eggs? A. Giraffe B. Robin C. Wildebeast",
-    userChoices: ["A", "B", "C"],
-    CorrectAnswer: 'B'
+    choice1: 'A',
+    choice2: 'B',
+    choice3: 'C',
+    answer: 2
 
   }
 ]
+var max_questions = 5;
 // var wins = document.querySelector(".win");
 // var losses = document.querySelector(".loss");
 
-startButton.addEventListener("click", beginQuiz);
+// startButton.addEventListener('click', beginQuiz);
+// startButton.onclick = () => {
 
-function beginQuiz() {
+beginQuiz = () => {
+  divEl.remove('startdiv');
+  score = 0;
+  questionContainer.style.display = 'block';
+  availableQuestions = [...questions]
 
-  currQuestionIndex = 0;
-  totalWins = 0;
-  totalLosses = 0;
-  startButton;
-  console.log("Begin Quiz Entered");
+  getNewQuestion()
 
-  renderQuestions();
-
-  countdown();
-  divEl.style.display = 'none';
-  questionContainerEl.style.display = 'block';
-  currQuestionIndex = 0;
-  renderQuestions();
-  console.log(divEl);
-  console.log(questionContainerEl);
-  questionContainerEl.style.display = 'block';
 }
 
+function getNewQuestion() {
+  if (availableQuestions.length === 0 || questionCounter > max_questions) {
+    localStorage.setItem('mostRecentScore', score)
+    return window.location.assign('/end.html')
+
+  }
+  questionCounte++
+  preogressText.innerText = `Question ${questionCounter} of ${max_questions}`;
+  progressBarFull.style.width = `${(questionContainer / max_questions) * 100} %` //percent progress- may not need.
+
+  const questionIndex = Math.floor(Math.random() * availableQuestions.length);
+  currentQuestion = availableQuestions[questionsIndex]
+  question.innerText = currentQuestion.question;
+
+  choices.forEach(choice => {
+    const number = choice.dataset['number'];
+    choice.innerText = currentQuestion['choice' + number];
+  })
+  availableQuestions.splice(questionIndex, 1);
+
+  acceptingAnswers = true;
+
+}
+
+choices.forEach(choice => {
+  choice.addEventListener('click', e => {
+    if (!acceptingAnswers) return
+    acceptingAnswers = false;
+    const selectedChoice = e.target;
+    const selectedAnswer = selectedChoice.dataset['number'];
+
+    var classToApply = selectedAnswer == currentQuestion.answer ? 'correct' :
+      'incorrect'
+
+    if (classToApply === 'correct') {
+      score++;
+    }
+    selectedChoice.parentElement.classList.add(classToApply);
+
+    setTimeout(() => {
+      selectedChoice.parentElement.classList.remove(classToApply);
+      getNewQuestion()
+
+    }, 1000)
+
+  })
+})
+// function renderQuestions() {
+//   var currentQuestion = myQuestions[currQuestionIndex]; {
+//     for (var i = 0; i < currentQuestion.userChoices; i++);
+
+//   }
+
+// }
+
+incrementScore = num => {
+  score += num;
+  scoreText.innerText = score;
+}
 // This function gets current question from the array and displays on the screen.
 
 // clear out anything already in the questionContainer
@@ -102,8 +151,26 @@ function beginQuiz() {
 // var pTag = document.createElement("p");
 // pTag.textContent = q.question;
 // questionContainer.appendChild(pTag);
-startButton.addEventListener('click', renderQuestions);
 
+// nextButton.addEventListener('click', renderQuestions);
+
+
+// function renderQuestions() {
+//   var currentQuestion = myQuestions[currQuestionIndex];
+
+//   var nextQuestion = currQuestionIndex + 1;
+//   // question = nextQuestion + '  ' + currentQuestion.myQuestions;
+//   for (var i = 0; i < currentQuestion.userChoices; i++) {
+//     var userChoice = currentQuestion.userChoices[i];
+
+//     var btn = document.createElement("button");
+//     questionContainer.appendChild(btn);
+//     btn.textContent = currentQuestion.userChoices;
+//     console.log(currentQuestion.userChoices);
+//     btn.style.width = '50px';
+//     btn.style.height = '50px';
+//   };
+// }
 
 function renderQuestions() {
   var currentQuestion = myQuestions[currQuestionIndex];
@@ -113,25 +180,25 @@ function renderQuestions() {
     var userChoice = currentQuestion.userChoices[i];
 
     var btn = document.createElement("button");
-    questionContainerEl.appendChild(btn);
-    btn.textContent = currentQuestion.userChoice;
-    console.log(currentQuestion.userChoice);
+    questionContainer.appendChild(btn);
+    btn.textContent = userChoice;
+    console.log(currentQuestion.userChoices);
     btn.style.width = '50px';
     btn.style.height = '50px';
   };
 }
 
-questionContainerEl.addEventListener('click', function (event) {
+questionContainer.addEventListener('click', function (event) {
   if (event.target.matches("button")) {
     var currentQuestion = myQuestions[currQuestionIndex];
-    console.log(event.target.textContent + " 1 " + currentQuestion.correctAnswer);
+    console.log(event.target.textContent + " 1 " + currentQuestion.answer);
   }
-  if (event.target.textContent != currentQuestion.correctAnswer) {
-    console.log(currentQuestion.userChoices + " 2 " + correctAnswer);
+  if (event.target.textContent != currentQuestion.answer) {
+    console.log(currentQuestion.userChoices + " 2 " + answer);
     answerIsWrong()
   } else {
-    (event.target.textContent == currentQuestion.correctAnswer)
-    console.log(currentQuestion.userChoices + " + " + correctAnswer);
+    (event.target.textContent == currentQuestion.answer)
+    console.log(currentQuestion.userChoices + " + " + answer);
     answerIsCorrect();
 
   }
@@ -139,41 +206,6 @@ questionContainerEl.addEventListener('click', function (event) {
   // renderQuestions()
 
 });
-
-// function renderQuestions() {
-//   var currentQuestion = myQuestions[currQuestionIndex];
-//   // var nextQuestion = currQuestionIndex + 1;
-//   // question = nextQuestion + '  ' + currentQuestion.myQuestions;
-//   for (var i = 0; i < currentQuestion.userChoices; i++) {
-//     var userChoice = currentQuestion.userChoices[i];
-
-//     var btn = document.createElement("button");
-//     questionContainerEl.appendChild(btn);
-//     btn.textContent = currentQuestion.userChoice;
-//     console.log(currentQuestion.userChoice);
-//     btn.style.width = '50px';
-//     btn.style.height = '50px';
-//   };
-// }
-// currentQuestion.userChoice.forEach(answer => {
-
-
-
-
-
-// for (var i = 0; i < q.userChoice.length; i++) {
-
-
-//   if (currQuestionIndex > 0) {
-
-//     for (var i = 0; i < q.userChoice.length; i++) {
-//     }
-//   }
-// } 
-// };
-// btn.remove();
-//  pTag.remove();  
-
 
 function answerIsCorrect() {
 
@@ -222,4 +254,27 @@ function countdown() {
     }
 
   }, 1000);
+}
+
+function beginQuiz() {
+
+  currQuestionIndex = 0;
+  totalWins = 0;
+  totalLosses = 0;
+  console.log("Begin Quiz Entered");
+
+  renderQuestions();
+
+  countdown();
+
+  questionContainer.style.display = 'block';
+  divEl.style.display = 'none';
+
+
+
+  currQuestionIndex = 0;
+  renderQuestions();
+  console.log(divEl);
+  console.log(questionContainer);
+
 }
