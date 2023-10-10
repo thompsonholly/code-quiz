@@ -32,39 +32,29 @@ let availableQuestions = []
 var questions = [
   {
     question: "Which is not an animal? A. Dog B. Horse C. Robot",
-    choice1: 'A',
-    choice2: 'B',
-    choice3: 'C',
-    answer: 3
+   choices: ['A','B','C'],
+    answer: 'C'
   },
   {
     question: 'What animal has fur? A. Bear B. Snake C. Alligator',
-    choice1: 'A',
-    choice2: 'B',
-    choice3: 'C',
-    answer: 1
+   choices: ['A','B','C'],
+  answer: 1
   },
   {
     question: 'Which animal has stripes? A. Cheetah B. Zebra C. Emu',
-    choice1: 'A',
-    choice2: 'B',
-    choice3: 'C',
-    answer: 2
+   choices: ['A','B','C'],
+ answer: 'B'
   },
   {
     question: "What animal sees best at night? A. Snail B. Squirrel C. Owl",
-    choice1: 'A',
-    choice2: 'B',
-    choice3: 'C',
-    answer: 3
+   choices: ['A','B','C'],
+    answer: 'C'
 
   },
   {
     question: "Which animal lays eggs? A. Giraffe B. Robin C. Wildebeast",
-    choice1: 'A',
-    choice2: 'B',
-    choice3: 'C',
-    answer: 2
+   choices: ['A','B','C'],
+    answer: 'B'
 
   }
 ]
@@ -72,73 +62,70 @@ var max_questions = 5;
 // var wins = document.querySelector(".win");
 // var losses = document.querySelector(".loss");
 
-// startButton.addEventListener('click', beginQuiz);
-// startButton.onclick = () => {
+startButton.addEventListener('click', beginQuiz());
+
 
 beginQuiz = () => {
   divEl.remove('startdiv');
   score = 0;
   questionContainer.style.display = 'block';
   availableQuestions = [...questions]
+  var pTag = document.createElement("p");
+  pTag.textContent = q.question;
+  questionContainer.appendChild(pTag);
 
-  getNewQuestion()
+  nextButton.addEventListener('click', getNewQuestion());
+
+  getNewQuestion();
 
 }
 
 function getNewQuestion() {
-  if (availableQuestions.length === 0 || questionCounter > max_questions) {
-    localStorage.setItem('mostRecentScore', score)
-    return window.location.assign('/end.html')
 
+  
+    var currentQuestion = questions[currentQuestion];
+    var nextQuestion = currentQuestion + 1;
+    // question = nextQuestion + '  ' + currentQuestion.myQuestions;
+    for (var i = 0; i < currentQuestion.userChoices; i++) {
+      var userChoice = currentQuestion.userChoices[i];
+
+      var btnA = document.createElement("buttonA");
+      var btnB = document.createElement("buttonB");
+      var btnB = document.createElement("buttonC");
+      questionContainer.appendChild(btnA);
+      questionContainer.appendChild(btnB);
+      questionContainer.appendChild(btnC);
+      btnA.textContent = A;
+      btnB.textContent = B;
+      btnC.textContent = C;
+      console.log(currentQuestion.userChoices);
+    }
   }
-  questionCounte++
-  preogressText.innerText = `Question ${questionCounter} of ${max_questions}`;
-  progressBarFull.style.width = `${(questionContainer / max_questions) * 100} %` //percent progress- may not need.
 
-  const questionIndex = Math.floor(Math.random() * availableQuestions.length);
-  currentQuestion = availableQuestions[questionsIndex]
+  nextButton.addEventListener('click', getNewQuestion);
+  if (questions.length === 0 || questionCounter > max_questions) {
+
+
+  
+  questionCounter++
+  const questionIndex = Math.floor(Math.random() * questions.length);
+  currentQuestion = availableQuestions[questionIndex]
   question.innerText = currentQuestion.question;
-
+}
   choices.forEach(choice => {
     const number = choice.dataset['number'];
     choice.innerText = currentQuestion['choice' + number];
   })
-  availableQuestions.splice(questionIndex, 1);
-
-  acceptingAnswers = true;
-
-}
 
 choices.forEach(choice => {
   choice.addEventListener('click', e => {
-    if (!acceptingAnswers) return
-    acceptingAnswers = false;
-    const selectedChoice = e.target;
-    const selectedAnswer = selectedChoice.dataset['number'];
-
-    var classToApply = selectedAnswer == currentQuestion.answer ? 'correct' :
-      'incorrect'
-
-    if (classToApply === 'correct') {
-      score++;
-    }
-    selectedChoice.parentElement.classList.add(classToApply);
-
-    setTimeout(() => {
-      selectedChoice.parentElement.classList.remove(classToApply);
-      getNewQuestion()
-
-    }, 1000)
-
-  })
-})
-// function renderQuestions() {
-//   var currentQuestion = myQuestions[currQuestionIndex]; {
-//     for (var i = 0; i < currentQuestion.userChoices; i++);
-
-//   }
-
-// }
+    if (!choice === answer) 
+      return score--;
+    } else {
+    if (choice === answer)
+  return score++;
+    
+    })
 
 incrementScore = num => {
   score += num;
@@ -148,11 +135,8 @@ incrementScore = num => {
 
 // clear out anything already in the questionContainer
 
-// var pTag = document.createElement("p");
-// pTag.textContent = q.question;
-// questionContainer.appendChild(pTag);
 
-// nextButton.addEventListener('click', renderQuestions);
+nextButton.addEventListener('click', nextQuestion);
 
 
 // function renderQuestions() {
@@ -172,109 +156,106 @@ incrementScore = num => {
 //   };
 // }
 
-function renderQuestions() {
-  var currentQuestion = myQuestions[currQuestionIndex];
-  // var nextQuestion = currQuestionIndex + 1;
-  // question = nextQuestion + '  ' + currentQuestion.myQuestions;
-  for (var i = 0; i < currentQuestion.userChoices; i++) {
-    var userChoice = currentQuestion.userChoices[i];
+// function renderQuestions() {
+//   var currentQuestion = myQuestions[currQuestionIndex];
+//   // var nextQuestion = currQuestionIndex + 1;
+//   // question = nextQuestion + '  ' + currentQuestion.myQuestions;
+//   for (var i = 0; i < currentQuestion.userChoices; i++) {
+//     var userChoice = currentQuestion.userChoices[i];
 
-    var btn = document.createElement("button");
-    questionContainer.appendChild(btn);
-    btn.textContent = userChoice;
-    console.log(currentQuestion.userChoices);
-    btn.style.width = '50px';
-    btn.style.height = '50px';
-  };
-}
+//     var btn = document.createElement("button");
+//     questionContainer.appendChild(btn);
+//     btn.textContent = userChoice;
+//     console.log(currentQuestion.userChoices);
+//     btn.style.width = '50px';
+//     btn.style.height = '50px';
+//   };
+// }
 
-questionContainer.addEventListener('click', function (event) {
-  if (event.target.matches("button")) {
-    var currentQuestion = myQuestions[currQuestionIndex];
-    console.log(event.target.textContent + " 1 " + currentQuestion.answer);
-  }
-  if (event.target.textContent != currentQuestion.answer) {
-    console.log(currentQuestion.userChoices + " 2 " + answer);
-    answerIsWrong()
-  } else {
-    (event.target.textContent == currentQuestion.answer)
-    console.log(currentQuestion.userChoices + " + " + answer);
-    answerIsCorrect();
+// questionContainer.addEventListener('click', function (event) {
+//   if (event.target.matches("button")) {
+//     var currentQuestion = myQuestions[currQuestionIndex];
+//     console.log(event.target.textContent + " 1 " + currentQuestion.answer);
+//   }
+//   if (event.target.textContent != currentQuestion.answer) {
+//     console.log(currentQuestion.userChoices + " 2 " + answer);
+//     answerIsWrong()
+//   } else {
+//     (event.target.textContent == currentQuestion.answer)
+//     console.log(currentQuestion.userChoices + " + " + answer);
+//     answerIsCorrect();
 
-  }
-  currQuestionIndex++
+//   }
+//   currQuestionIndex++
   // renderQuestions()
 
-});
+//});
 
-function answerIsCorrect() {
+// function answerIsCorrect() {
 
-  console.log('Correct!');
-  totalWins++;
+//   console.log('Correct!');
+//   totalWins++;
+// }
   // localStorage.setItem("wins", totalWins);
-  // wins.textContent = localStorage.getItem('wins');
+  // wins.textContent = localStorage.getItem('wins')
 
-
-
-}
-
-function answerIsWrong() {
-  console.log('not correct')
-  timeLeft -= 5;
-  totalLosses++;
+// function answerIsWrong() {
+//   console.log('not correct')
+//   timeLeft -= 5;
+//   totalLosses++;
   // localStorage.setItem('loss', totalLosses);
   // losses.textContent = localStorage.getItem('losses');
 
 
-}
+// }
 
-function countdown() {
-  secondsLeft = 60;
-  var timeInterval = setInterval(function () {
-    timeLeft.textContent = secondsLeft;
-    secondsLeft--;
+// function countdown() {
+//   secondsLeft = 60;
+//   var timeInterval = setInterval(function () {
+//     timeLeft.textContent = secondsLeft;
+//     secondsLeft--;
 
-    if (secondsLeft > 1) {
+//     if (secondsLeft > 1) {
 
-      timeLeft.textContent = secondsLeft + ' seconds remaining';
+//       timeLeft.textContent = secondsLeft + ' seconds remaining';
 
-      secondsLeft--;
+//       secondsLeft--;
 
-    }
-    else if (secondsLeft === 0) {
-      f
+//     }
+//     else if (secondsLeft === 0) {
+      
       // timerEl.textContent = '';
-      totalLosses++;
+      // totalLosses++;
       // Stops execution of action at set interval
-      clearInterval(timeInterval);
-      console.log("Timer 0");
+      // clearInterval(timeInterval);
+      // console.log("Timer 0");
       //determines if user won the game or not
       // Calls function to create and append image
       // renderQuestions()
-    }
+//     }
 
-  }, 1000);
-}
+//   }, 1000);
+// }
 
-function beginQuiz() {
+// function beginQuiz() {
 
-  currQuestionIndex = 0;
-  totalWins = 0;
-  totalLosses = 0;
-  console.log("Begin Quiz Entered");
+//   currQuestionIndex = 0;
+//   totalWins = 0;
+//   totalLosses = 0;
+//   console.log("Begin Quiz Entered");
 
-  renderQuestions();
+//   renderQuestions();
 
-  countdown();
+//   countdown();
 
-  questionContainer.style.display = 'block';
-  divEl.style.display = 'none';
+//   questionContainer.style.display = 'block';
+//   divEl.style.display = 'none';
 
 
 
-  currQuestionIndex = 0;
-  renderQuestions();
-  console.log(divEl);
-  console.log(questionContainer);
+//   currQuestionIndex = 0;
+//   renderQuestions();
+//   console.log(divEl);
+//   console.log(questionContainer);
 
-}
+// }
