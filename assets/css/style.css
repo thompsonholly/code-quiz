@@ -1,5 +1,8 @@
 :root {
   background-color: #eee2dc;
+  text-align: center;
+  background-color: #bab2b5;
+  border: #edc7b7 solid 10px;
 }
 
 
@@ -16,19 +19,26 @@ body {
   position: absolute;
 } */
 
-.countdown {
+#card-timer {
   top: 8px;
   right: 8px;
   position: absolute;
   margin-right: 45px;
   color: #123c69;
   font-size: 30px;
+  /* display: none; */
 }
 
 
 .question-container {
+  display: block;
   margin: 80px auto 0 auto;
   max-width: 650px;
+  text-align: center;
+  background-color: #bab2b5;
+  border: #edc7b7 solid 10px;
+  border: 5px solid blue;
+
 }
 
 .startdiv {
@@ -38,20 +48,12 @@ body {
 }
 
 
-
 #submit {
-  display: inline;
   justify-content: flex-start;
   text-align: center;
   margin-top: 20px;
   border: #bab2b5 solid 5px;
-  display: none;
-}
-
-.question-container {
-  display: none;
-  text-align: center;
-  border: 5px solid blue;
+  /* display: none; */
 }
 
 .start-btn {
@@ -74,18 +76,6 @@ body {
 
 }
 
-#hs-container {
-  text-align: center;
-  background-color: #bab2b5;
-  border: #edc7b7 solid 10px;
-  height: 500px;
-  margin-top: 200px;
-  color: #ac3b61;
-  font-size: 30px;
-  text-align: center;
-
-}
-
 #btn {
   background-color: #123c69;
   display: inline-block;
@@ -97,6 +87,12 @@ body {
   font-size: 20px;
 }
 
+footer {
+  height: 100px;
+  background: #eee;
+}
+
+/* username in html2 */
 #username {
   display: inline-block;
   color: aliceblue;
@@ -107,6 +103,16 @@ body {
   font-size: 20px;
 }
 
+/* #hs-container {
+  text-align: center;
+  background-color: #bab2b5;
+  border: #edc7b7 solid 10px;
+  height: 500px;
+  margin-top: 200px;
+  color: #ac3b61;
+  font-size: 30px;
+  text-align: center;
+} */
 /* .end-hs-form {
   display: flex;
   flex-direction: row;
